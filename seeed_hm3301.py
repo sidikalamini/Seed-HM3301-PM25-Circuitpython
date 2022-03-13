@@ -6,6 +6,7 @@ CircuitPython library for Seeed HM3301 PM laser dust sensor
 
 
 * Author(s): Ryan Agius
+https://github.com/SmartCowAi/jetson-nano-weather-station/blob/main/weather_station/seeed_hm3301.py
 
 Implementation Notes
 --------------------
@@ -42,10 +43,9 @@ _HM3301_CHIPID = unhexlify("001C")
 _HM3301_DATA_SIZE = 29
 
 def _read16(arr):
-    """Parse an unsigned 16-bit value as an integer."""
-   
+    """Parse an unsigned 16-bit value as an integer."""   
     return arr[0] << 8 | arr[1]
-
+  
 class Seeed_HM3301:
     """Driver from HM3301 Particulate Matter sensor
 
@@ -53,7 +53,7 @@ class Seeed_HM3301:
       will be from the previous reading."""
 
     def __init__(self, *, refresh_rate=10):
-        """Check the BME680 was found, read the coefficients and enable the sensor for continuous
+        """Check the HM3301 was found, read the coefficients and enable the sensor for continuous
         reads."""
 
         # Check device ID.
@@ -73,7 +73,7 @@ class Seeed_HM3301:
         self._min_refresh_time = 1 / refresh_rate
 
     def check_crc(self, data):
-        """Checks the crc of the data packet, retruns True if correct, False otherwise"""
+        """Checks the crc of the data packet, returns True if correct, False otherwise"""
 
         sum = 0
         for i in range(_HM3301_DATA_SIZE-1):
@@ -169,14 +169,14 @@ class HM3301_I2C(Seeed_HM3301):
         .. code-block:: python
 
             import board
-            import seeed_hm3301
+            from seeed_hm3301 import HM3301_I2C
 
         Once this is done you can define your `busio.I2C` object and define your sensor object
 
         .. code-block:: python
 
             i2c = busio.I2C(board.SCL, board.SDA)   # uses board.SCL and board.SDA
-            hm3301 = seeed_hm3301.Seeed_HM3301_I2C(i2c)
+            hm3301 = HM3301_I2C(i2c)
 
         Now you have access to the :attr:`PM_1_0_conctrt_std`, :attr:`PM_2_5_conctrt_std`,
         :attr:`PM_10_conctrt_std`, :attr:`PM_1_0_conctrt_atm`, :attr:`PM_2_5_conctrt_atm`,
