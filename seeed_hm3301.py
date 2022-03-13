@@ -184,7 +184,15 @@ class HM3301_I2C(Seeed_HM3301):
 
         .. code-block:: python
 
-            PM_2_5_concentration = hm3301.PM_2_5_conctrt_std
+            while True:
+                PM25 = hm3301.PM_2_5_conctrt_std
+                PM1 = hm3301.PM_1_0_conctrt_std
+                PM10 = hm3301.PM_10_conctrt_std
+
+                print("PM2.5 : "+str(PM25))
+                print("PM1.0 : "+str(PM1))
+                print("PM10 : "+str(PM10))
+                time.sleep(5)
 
     """
 
